@@ -33,7 +33,6 @@
                     <th><fmt:message key="add.match.homeTeamGoals"/></th>
                     <th><fmt:message key="add.match.awayTeamGoals"/></th>
                     <th><fmt:message key="add.match.matchDate"/></th>
-                    <th><fmt:message key="add.match.description"/></th>
                 </tr>
                 </thead>
                 <tbody id="myTable">
@@ -45,7 +44,6 @@
                         <td>${match.homeTeamGoals}</td>
                         <td>${match.awayTeamGoals}</td>
                         <td>${match.matchDate}</td>
-                        <td>${match.description}</td>
                         <ctg:notDeleted>
                             <td>
                                 <button class="btn btn-link"

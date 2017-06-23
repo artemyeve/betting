@@ -64,19 +64,12 @@
             </div>
         </div>
         <div class="form-group">
-            <label class="col-md-4 control-label" for="description"><fmt:message key="add.match.description"/> *</label>
-            <div class="col-md-6">
-                <input id="description" name="description" type="text" class="form-control input-md"
-                       data-parsley-required data-parsley-length="[1,255]" value="${match.description}">
-            </div>
-        </div>
-        <div class="form-group">
             <div class="col-md-4 col-md-offset-4">
                 <button type="submit" name="command" value="edit" class="btn btn-primary">
                     <fmt:message key="match.edit"/>
                 </button>
                 <button type="button" class="btn btn-primary "
-                        onClick='location.href="../matches_info.jsp"'>
+                        onClick='location.href="../menu.jsp"'>
                     <fmt:message key="form.back"/>
                 </button>
             </div>
