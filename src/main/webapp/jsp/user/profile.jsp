@@ -31,6 +31,12 @@
               <h3><fmt:message key="profile.login"/> ${user.login}</h3>
           </div>
           <div>
+              <h3><fmt:message key="profile.first.name"/> ${user.firstName}</h3>
+          </div>
+          <div>
+              <h3><fmt:message key="profile.second.name"/> ${user.secondName}</h3>
+          </div>
+          <div>
               <h3><fmt:message key="profile.balance"/> ${account.balance}</h3>
           </div>
           <div>

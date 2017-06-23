@@ -6,7 +6,7 @@
 <html>
 <head>
     <link rel="icon" href="${pageContext.request.contextPath}/images/football.png">
-    <title><fmt:message key="profile.title.cash"/></title>
+    <title><fmt:message key="profile.title.balance"/></title>
 </head>
 <body>
   <c:set var="page" value="path.page.add.funds" scope="session"/>
@@ -15,14 +15,7 @@
     <c:if test="${not empty error}">
       <div class="alert alert-danger"style="margin-top: 90px">${error}</div>
     </c:if>
-    <div class="form-group">
-      <label for="card" class="col-sm-3 control-label"><fmt:message key="signup.card"/> *</label>
-      <div class="col-sm-6">
-          <input type="text" class="form-control" data-parsley-required data-parsley-type="number"
-                 data-parsley-length="[13,18]" name="card" id="card" value="${user.cardNumber}" />
-      </div>
-    </div>
-    <div class="form-group">
+     <div class="form-group">
       <label for="cash" class="col-sm-3 control-label"><fmt:message key="profile.money"/> *</label>
       <div class="col-sm-6">
         <input type="number" class="form-control" name="cash" id="cash" data-parsley-required data-parsley-type="number"
@@ -32,7 +25,7 @@
     <div class="form-group">
       <div class="col-sm-offset-3 col-sm-9 m-t-15">
         <button type="submit" name="command" value="add_funds" class="btn btn-primary">
-          <fmt:message key="profile.title.cash"/>
+          <fmt:message key="profile.title.balance"/>
         </button>
         <button type="button" class="btn btn-primary " onClick='location.href="profile.jsp"'>
           <fmt:message key="form.back"/>

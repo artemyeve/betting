@@ -18,7 +18,23 @@
     </c:if>
     <form method="post" class="form-horizontal" id="change" name="change"
             action="${pageContext.request.contextPath}/controller">
-      <div class="form-group">
+        <div class="form-group">
+            <label class="col-sm-3 control-label" for="firstName"><fmt:message key="form.first.name"/> *</label>
+            <div class="col-sm-6">
+                <input type="text" class="form-control" data-parsley-required data-parsley-pattern="[a-zA-Z]{1,15}"
+                       data-parsley-trigger="keyup" id="firstName" name="firstName"
+                       value="${user.firstName}" title="<fmt:message key="form.name.pattern"/>"/>
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="col-sm-3 control-label" for="secondName"><fmt:message key="form.second.name"/> *</label>
+            <div class="col-sm-6">
+                <input type="text" class="form-control" data-parsley-required data-parsley-pattern="[a-zA-Z]{1,15}"
+                       data-parsley-trigger="keyup" id="secondName" name="secondName"
+                       value="${user.secondName}" title="<fmt:message key="form.name.pattern"/>"/>
+            </div>
+        </div>
+        <div class="form-group">
         <label class="col-sm-3 control-label" for="login"><fmt:message key="form.login"/> *</label>
         <div class="col-sm-6">
             <input type="text" class="form-control" data-parsley-required data-parsley-pattern="[a-zA-Z0-9]{6,10}"
@@ -33,15 +49,7 @@
                        data-parsley-trigger="keyup" name="email" value="${user.email}">
           </div>
       </div>
-      <div class="form-group">
-          <label class="col-sm-3 control-label"><fmt:message key="signup.card"/> *</label>
-          <div class="col-sm-6">
-              <input type="text" class="form-control" data-parsley-required data-parsley-type="number"
-                   data-parsley-length="[13,18]" title="Enter new bankcard number" name="card"
-                       value="${user.cardNumber}"/>
-          </div>
-      </div>
-      <div class="form-group">
+        <div class="form-group">
           <div class="col-sm-offset-3 col-sm-9 m-t-15">
               <button type="submit" name="command" value="change" class="btn btn-primary">
                   <fmt:message key="profile.change"/>

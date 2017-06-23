@@ -25,6 +25,20 @@
         <div class="alert alert-danger ">${error}</div>
     </c:if>
     <div class="form-group">
+        <label class="col-sm-3 control-label" for="firstName"><fmt:message key="form.first.name"/> *</label>
+        <div class="col-sm-6">
+            <input type="text" class="form-control" id="firstName" name="firstName" data-parsley-required
+                   data-parsley-pattern="[a-zA-Z]{1,15}"  value="${firstName}" title="<fmt:message key="form.name.pattern"/>"/>
+        </div>
+    </div>
+    <div class="form-group">
+        <label class="col-sm-3 control-label" for="secondName"><fmt:message key="form.second.name"/> *</label>
+        <div class="col-sm-6">
+            <input type="text" class="form-control" id="secondName" name="secondName" data-parsley-required
+                   data-parsley-pattern="[a-zA-Z]{1,15}"  value="${secondName}" title="<fmt:message key="form.name.pattern"/>"/>
+        </div>
+    </div>
+    <div class="form-group">
         <label class="col-sm-3 control-label" for="login"><fmt:message key="form.login"/> *</label>
         <div class="col-sm-6">
             <input type="text" class="form-control" id="login" name="login" data-parsley-required
@@ -50,14 +64,7 @@
                    data-parsley-trigger="keyup" name="email" id="email" value=${email}>
         </div>
     </div>
-    <div class="form-group">
-        <label class="col-sm-3 control-label" for="card"><fmt:message key="signup.card"/> *</label>
-        <div class="col-sm-6">
-            <input type="text" class="form-control" data-parsley-required data-parsley-type="number"
-                   data-parsley-length="[13,18]" name="card" id="card" value="${card}"/>
-        </div>
-    </div>
-    <div class="form-group">
+       <div class="form-group">
         <div class="col-sm-offset-3 col-sm-9 m-t-15">
             <button type="submit" name="command" value="signup" class="btn btn-primary"><fmt:message
                     key="signup.submit"/></button>
