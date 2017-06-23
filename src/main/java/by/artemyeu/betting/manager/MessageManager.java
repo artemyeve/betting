@@ -7,11 +7,6 @@ import java.util.ResourceBundle;
  */
 public class MessageManager {
 
-    /** The Constant ADD_COMMENT_EMPTY. */
-    public final static String ADD_COMMENT_EMPTY="message.add.comment.empty";
-
-    /** The Constant ADD_COMMENT_ERROR. */
-    public final static String ADD_COMMENT_ERROR="message.add.comment";
 
     /** The Constant ADD_MATCH_DATA_ERROR. */
     public final static String ADD_MATCH_DATA_ERROR="message.add.match.data.error";
@@ -22,9 +17,8 @@ public class MessageManager {
     /** The Constant ADD_MATCH_SUCCESS. */
     public final static String ADD_MATCH_SUCCESS="message.add.match.success";
 
-
     /** The Constant CHANGE_CASH_ERROR. */
-    public final static String CHANGE_CASH_ERROR="message.change.cash";
+    public final static String CHANGE_CASH_ERROR="message.change.balance";
 
     /** The Constant CHANGE_FIRST_NAME_ERROR. */
     public final static String CHANGE_FIRST_NAME_ERROR="message.change.first.name.error";
@@ -49,9 +43,6 @@ public class MessageManager {
 
     /** The Constant CHANGE_SUCCESS. */
     public final static String CHANGE_SUCCESS="message.change.success";
-
-    /** The Constant CHANGE_MATCH_TOURNAMENT_ERROR. */
-    public final static String CHANGE_MATCH_TOURNAMENT_ERROR="message.change.track.name.error";
 
     /** The Constant DELETE_MATCH_SUCCESS. */
     public final static String DELETE_MATCH_SUCCESS="message.delete.match.success";

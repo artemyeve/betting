@@ -38,7 +38,7 @@ public class LogInCommand extends AbstractCommand {
             if (new LoginLogic().checkLogin(login, password)) {
                 sessionRequestContent.setSessionAttribute(IS_LOGIN, TRUE);
                 UserLogic userLogic = new UserLogic();
-                User user = userLogic.findUser(login);
+                User user = userLogic.findUserByLogin(login);
                 sessionRequestContent.setSessionAttribute(USER_ATTRIBUTE, user);
                 page = ConfigurationManager.getProperty(ConfigurationManager.HOME_PATH);
             } else {

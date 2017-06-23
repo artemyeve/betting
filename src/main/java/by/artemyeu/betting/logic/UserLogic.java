@@ -24,7 +24,6 @@ public class UserLogic implements Messenger {
     private final String SUCCESS = "success";
 
 
-
     public String addFunds(Account account, BigDecimal newCash) throws LogicException {
 
             ProxyConnection connection = ConnectionPool.getInstance().getConnection();

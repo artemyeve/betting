@@ -40,17 +40,11 @@ public class ConfigurationManager {
     /** The Constant PROFILE_PATH. */
     public static final String PROFILE_PATH = "path.page.profile";
 
-    /** The Constant SET_BONUS_PATH. */
-    public static final String SET_BONUS_PATH = "path.page.bonus";
-
     /** The Constant SHOW_USERS_PATH. */
     public static final String SHOW_USERS_PATH = "path.page.show_users";
 
     /** The Constant SIGNUP_PATH. */
     public static final String SIGNUP_PATH = "path.page.signup";
-
-    /** The Constant MATCH_INFO_PATH. */
-    public static final String MATCH_INFO_PATH = "path.page.matches_info";
 
     /** The Constant MATCH_EDIT_PATH. */
     public static final String MATCH_EDIT_PATH = "path.page.match_edit";

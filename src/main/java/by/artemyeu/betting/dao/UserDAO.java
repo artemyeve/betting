@@ -21,7 +21,7 @@ public class UserDAO extends AbstractDAO<User> {
     /** The Constant SQL_ADD_USER. */
     private static final String SQL_ADD_USER = "INSERT INTO user(first_name,second_name,login,password,email) VALUES(?,?,?,?,?)";
 
-       /** The Constant SQL_CHANGE_CASH. */
+       /** The Constant SQL_CHANGE_BALANCE. */
     private static final String SQL_CHANGE_CASH = "UPDATE account SET balance=? WHERE id=?";
 
     /** The Constant SQL_CHANGE_FIRST_NAME. */
@@ -43,9 +43,9 @@ public class UserDAO extends AbstractDAO<User> {
     private static final String SQL_DELETE_USER = "DELETE FROM user WHERE id = ?";
 
     /** The Constant SQL_SELECT_ALL_CLIENTS. */
-    private static final String SQL_SELECT_ALL_CLIENTS = "SELECT user.id, user.login,  COUNT(user.login) as count\n"+
-            " FROM audio_track_order.`order` Left join `user` ON `order`.user_id=`user`.id\n"+
-            " GROUP BY user.login ORDER BY user.login";
+    private static final String SQL_SELECT_ALL_CLIENTS = "SELECT user.id, user.first_name,user.second_name,user.login,\n"+
+            "user.password,user.email FROM user WHERE user.role='bettor'\n"+
+            " ORDER BY user.login";
 
     /** The Constant SQL_SELECT_CASH. */
     private static final String SQL_SELECT_CASH = "SELECT balance FROM account WHERE id=?";
@@ -54,13 +54,16 @@ public class UserDAO extends AbstractDAO<User> {
     private static final String SQL_SELECT_PASSWORD_BY_LOGIN = "SELECT password FROM user WHERE login=?";
 
     /** The Constant SQL_SELECT_USER_BY_ID. */
-    private static final String SQL_SELECT_USER_BY_ID = "SELECT * FROM user WHERE id=?";
+    private static final String SQL_SELECT_USER_BY_ID = "SELECT first_name,second_name,login,\n" +
+            "password,email FROM user WHERE id=?";
 
     /** The Constant SQL_SELECT_USER_BY_LOGIN. */
-    private static final String SQL_SELECT_USER_BY_LOGIN = "SELECT * FROM user WHERE login=?";
+    private static final String SQL_SELECT_USER_BY_LOGIN = "SELECT id, first_name,second_name,\n" +
+             "password,email FROM user WHERE login=?";
 
     /** The Constant SQL_SELECT_USER_BY_EMAIL. */
-    private static final String SQL_SELECT_USER_BY_EMAIL = "SELECT * FROM user WHERE email=?";
+    private static final String SQL_SELECT_USER_BY_EMAIL = "SELECT id, first_name,second_name,login\n" +
+            "password FROM user WHERE email=?";
 
     /**
      * Instantiates a new user DAO.

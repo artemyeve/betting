@@ -114,7 +114,7 @@ public class EditMatchCommand extends AbstractCommand {
 
                 sessionRequestContent.setSessionAttribute(MATCH_ATTR, match);
                 sessionRequestContent.setRequestAttribute(SUCCESS, Messenger.messageManager.getProperty(MessageManager.CHANGE_SUCCESS));
-                page = ConfigurationManager.getProperty(ConfigurationManager.MATCH_INFO_PATH);
+                page = ConfigurationManager.getProperty(ConfigurationManager.MATCH_EDIT_PATH);
             } catch (LogicException e) {
                 LOG.error("Exception during change command", e);
                 page = redirectToErrorPage(sessionRequestContent, e);

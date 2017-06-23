@@ -16,27 +16,6 @@ public class ValidationTest {
         validator = new Validator();
     }
 
-    @Test
-    public void checkIsBankCardValidFirst() {
-        String card = "123";
-        boolean actual = validator.isBankCardValid(card);
-        Assert.assertFalse(actual);
-    }
-
-    @Test
-    public void checkIsBankCardValidSecond() {
-        String card = "1234567891011121314151617";
-        boolean actual = validator.isBankCardValid(card);
-        Assert.assertFalse(actual);
-    }
-
-    @Test
-    public void checkIsLengthValidThird() {
-        String card = "111222333444555";
-        boolean actual = validator.isBankCardValid(card);
-        Assert.assertTrue(actual);
-    }
-
 
     @Test
     public void checkIsTitleLengthValid() {
@@ -45,17 +24,5 @@ public class ValidationTest {
         Assert.assertFalse(actual);
     }
 
-    @Test
-    public void checkIsEmailValidFirst() {
-        String comment = "";
-        boolean actual = validator.isCommentValid(comment);
-        Assert.assertFalse(actual);
-    }
 
-    @Test
-    public void checkIsCommentValidSecond() {
-        String comment = "11111111";
-        boolean actual = validator.isCommentValid(comment);
-        Assert.assertTrue(actual);
-    }
 }

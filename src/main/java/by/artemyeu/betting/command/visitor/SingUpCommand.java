@@ -11,6 +11,10 @@ import by.artemyeu.betting.servlet.SessionRequestContent;
  * Created by Acer on 06.06.2017.
  */
 public class SingUpCommand extends AbstractCommand {
+    /** The Constant PARAM_FIRST_NAME. */
+    private static final String PARAM_FIRST_NAME = "first name";
+    /** The Constant PARAM_SECOND_NAME. */
+    private static final String PARAM_SECOND_NAME = "second name";
 
     /** The Constant PARAM_LOGIN. */
     private static final String PARAM_LOGIN = "login";
@@ -24,10 +28,7 @@ public class SingUpCommand extends AbstractCommand {
     /** The Constant PARAM_EMAIL. */
     private static final String PARAM_EMAIL = "email";
 
-    /** The Constant PARAM_CARD_NUMBER. */
-    private static final String PARAM_CARD_NUMBER = "card";
-
-    /** The Constant ROLE_ATTRIBUTE. */
+      /** The Constant ROLE_ATTRIBUTE. */
     private static final String ROLE_ATTRIBUTE = "role";
 
     /** The Constant IS_LOGIN. */
@@ -42,26 +43,28 @@ public class SingUpCommand extends AbstractCommand {
     @Override
     public String execute(SessionRequestContent sessionRequestContent) {
         String page;
+        String firstName = sessionRequestContent.getRequestParameter(PARAM_FIRST_NAME);
+        String secondName = sessionRequestContent.getRequestParameter(PARAM_SECOND_NAME);
         String login = sessionRequestContent.getRequestParameter(PARAM_LOGIN);
         String password = sessionRequestContent.getRequestParameter(PARAM_PASSWORD);
         String confPassword = sessionRequestContent.getRequestParameter(PARAM_CONF_PASS);
         String email = sessionRequestContent.getRequestParameter(PARAM_EMAIL);
-        String cardNumber = sessionRequestContent.getRequestParameter(PARAM_CARD_NUMBER);
         UserLogic userLogic = new UserLogic();
         try {
-            String res = userLogic.singUp(login, password, confPassword, email, cardNumber);
+            String res = userLogic.singUp(firstName,secondName,login, password, confPassword, email);
             if (SUCCESS.equals(res)) {
-                User user=userLogic.findUser(login);
+                User user=userLogic.findUserByLogin(login);
                 sessionRequestContent.setSessionAttribute(IS_LOGIN, "true");
                 sessionRequestContent.setSessionAttribute(USER_ATTRIBUTE, user);
                 sessionRequestContent.setSessionAttribute(ROLE_ATTRIBUTE, user.getRole());
                 page = ConfigurationManager.getProperty(ConfigurationManager.HOME_PATH);
             }else{
+                sessionRequestContent.setRequestAttribute(PARAM_FIRST_NAME, firstName);
+                sessionRequestContent.setRequestAttribute(PARAM_SECOND_NAME, secondName);
                 sessionRequestContent.setRequestAttribute(PARAM_LOGIN, login);
                 sessionRequestContent.setRequestAttribute(PARAM_PASSWORD, password);
                 sessionRequestContent.setRequestAttribute(PARAM_CONF_PASS, confPassword);
                 sessionRequestContent.setRequestAttribute(PARAM_EMAIL, email);
-                sessionRequestContent.setRequestAttribute(PARAM_CARD_NUMBER, cardNumber);
                 sessionRequestContent.setRequestAttribute(ERROR, res);
                 page = ConfigurationManager.getProperty(ConfigurationManager.SIGNUP_PATH);
             }

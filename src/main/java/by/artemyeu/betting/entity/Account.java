@@ -11,7 +11,6 @@ public class Account extends Entity {
     private BigDecimal balance;
 
 
-
     /**
      * Instantiates a new cash account.
      *
