@@ -31,13 +31,7 @@
               <h3><fmt:message key="profile.login"/> ${user.login}</h3>
           </div>
           <div>
-              <h3><fmt:message key="profile.cash"/> ${user.cash}</h3>
-          </div>
-          <div>
-              <h3 title=<fmt:message key="profile.title.discount"/>><fmt:message key="profile.discount"/> ${user.discount}</h3>
-          </div>
-          <div>
-              <h3><fmt:message key="profile.card"/> ${user.cardNumber}</h3>
+              <h3><fmt:message key="profile.balance"/> ${account.balance}</h3>
           </div>
           <div>
               <h3><fmt:message key="profile.email"/> ${user.email}</h3>
@@ -47,7 +41,7 @@
                 <fmt:message key="profile.title.pass"/><span class="glyphicon glyphicon-edit"></span>
               </button>
               <button class="btn-lg btn-primary" onClick='location.href="add_funds.jsp"'>
-                <fmt:message key="profile.title.cash"/><span class="glyphicon glyphicon-edit"></span>
+                <fmt:message key="profile.title.balance"/><span class="glyphicon glyphicon-edit"></span>
               </button>
               <button class="btn btn-lg btn-primary" type="button"
                       onClick='location.href="${pageContext.request.contextPath}/controller?command=main"'>
