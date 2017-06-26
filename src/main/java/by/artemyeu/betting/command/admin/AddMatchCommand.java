@@ -9,6 +9,10 @@ import by.artemyeu.betting.exception.LogicException;
 import by.artemyeu.betting.logic.MatchLogic;
 import by.artemyeu.betting.servlet.SessionRequestContent;
 
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.Date;
+
 
 /**
  * Created by Acer on 16.05.2017.
@@ -58,16 +62,19 @@ public class AddMatchCommand extends AbstractCommand {
                 String matchDate = sessionRequestContent.getRequestParameter(MATCH_DATE_PARAM);
 
                 try {
-                    String res = matchLogic.addMatch(tournament,homeTeam,awayTeam,homeTeamGoals,awayTeamGoals,matchDate);
+                    int intHomeTeamGoals = Integer.valueOf(homeTeamGoals);
+                    int intAwayTeamGoals = Integer.valueOf(awayTeamGoals);
+                    SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+                    Date finalMatchDate = formatter.parse(matchDate);
+                    String res = matchLogic.addMatch(tournament, homeTeam, awayTeam, intHomeTeamGoals, intAwayTeamGoals, finalMatchDate);
                     if (SUCCESS.equals(res)) {
-
                         sessionRequestContent.setRequestAttribute(SUCCESS, messageManager.getProperty(MessageManager.ADD_MATCH_SUCCESS));
                         page = ConfigurationManager.getProperty(ConfigurationManager.HOME_PATH);
                     } else {
                         sessionRequestContent.setRequestAttribute(ERROR, res);
                         page = ConfigurationManager.getProperty(ConfigurationManager.HOME_PATH);
                     }
-                } catch (LogicException e) {
+                } catch (ParseException | LogicException e) {
                     LOG.error("Exception during match addition command", e);
                     sessionRequestContent.setRequestAttribute(ERROR, messageManager.getProperty(MessageManager.ADD_MATCH_ERROR));
                     page = ConfigurationManager.getProperty(ConfigurationManager.HOME_PATH);

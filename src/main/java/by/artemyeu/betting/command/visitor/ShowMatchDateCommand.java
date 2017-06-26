@@ -40,7 +40,7 @@ public class ShowMatchDateCommand extends AbstractCommand {
         }
         MatchLogic matchLogic = new MatchLogic();
         try {
-            List<Match> matchList = matchLogic.findMatchesByMatchDate(matchDate);
+            List<Match> matchList = matchLogic.findMatchByDate(matchDate);
             sessionRequestContent.setSessionAttribute(MATCH_DATE_PARAMETER,matchDate);
             sessionRequestContent.setSessionAttribute(MATCH_LIST_ATTR, matchList);
             sessionRequestContent.setSessionAttribute(IS_DELETED, false);

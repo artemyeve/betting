@@ -12,7 +12,10 @@ import by.artemyeu.betting.manager.Messenger;
 import by.artemyeu.betting.servlet.SessionRequestContent;
 
 
-import java.util.List;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.Date;
+
 
 /**
  * Created by Acer on 16.05.2017.
@@ -104,9 +107,11 @@ public class EditMatchCommand extends AbstractCommand {
                     sessionRequestContent.setRequestAttribute(ERROR, res);
                     return ConfigurationManager.getProperty(ConfigurationManager.MATCH_EDIT_PATH);
                 }
-                res = matchLogic.changeMatchDate(match.getMatchId(), matchDate);
+                SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+                Date finalMatchDate = formatter.parse(matchDate);
+                res = matchLogic.changeMatchDate(match.getMatchId(), finalMatchDate);
                 if (SUCCESS.equals(res)) {
-                    match.setMatchDate(matchDate);
+                    match.setMatchDate(finalMatchDate);
                 } else {
                     sessionRequestContent.setRequestAttribute(ERROR, res);
                     return ConfigurationManager.getProperty(ConfigurationManager.MATCH_EDIT_PATH);
@@ -115,7 +120,7 @@ public class EditMatchCommand extends AbstractCommand {
                 sessionRequestContent.setSessionAttribute(MATCH_ATTR, match);
                 sessionRequestContent.setRequestAttribute(SUCCESS, Messenger.messageManager.getProperty(MessageManager.CHANGE_SUCCESS));
                 page = ConfigurationManager.getProperty(ConfigurationManager.MATCH_EDIT_PATH);
-            } catch (LogicException e) {
+            } catch (ParseException |LogicException e) {
                 LOG.error("Exception during change command", e);
                 page = redirectToErrorPage(sessionRequestContent, e);
             }

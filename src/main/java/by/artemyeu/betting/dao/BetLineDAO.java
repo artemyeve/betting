@@ -44,17 +44,6 @@ public class BetLineDAO extends AbstractDAO {
             "FROM bet_line\n" +
             "WHERE bet_line.bet_line_id=?";
 
-    /** The Constant SQL_FIND_ALL_ACTIVE_BETS_ON_OUTCOME. */
-    private static final String SQL_FIND_ALL_ACTIVE_BETS_ON_OUTCOME = "SELECT match.match_id,match.tournament,match.home_team,\n" +
-            "match.away_team, match.home_team_goals,match.away_team_goals,match.match_date,match.active FROM match\n" +
-            "ORDER BY match.match_date";
-
-    /** The Constant SQL_FIND_ALL_OUTCOMES_ON_MATCH. */
-    private static final String SQL_FIND_ALL_OUTCOMES_ON_MATCH = "SELECT match.match_id,match.tournament,match.home_team,\n" +
-            "match.away_team, match.home_team_goals,match.away_team_goals,match.match_date,match.active FROM match\n" +
-            "ORDER BY match.match_date";
-
-
     /**
      * Instantiates a new bet line DAO.
      *
@@ -134,7 +123,7 @@ public class BetLineDAO extends AbstractDAO {
      * @param betLineId the bet line id
      * @throws DAOException the DAO exception
      */
-    public void deleteOutcomeById(int betLineId) throws DAOException {
+    public void deleteOutcome(int betLineId) throws DAOException {
         PreparedStatement statement = null;
         try {
             statement = connection.prepareStatement(SQL_DELETE_OUTCOME_FROM_BET_LINE);
@@ -146,5 +135,63 @@ public class BetLineDAO extends AbstractDAO {
             closeStatement(statement);
         }
     }
+
+    /**
+     * Find odd by bet line id.
+     *
+     * @param betLineId the bet line id
+     * @throws DAOException the DAO exception
+     */
+    public void findOddByBetLineId(int betLineId) throws DAOException {
+        PreparedStatement statement = null;
+        try {
+            statement = connection.prepareStatement(SQL_FIND_ODD_BY_BET_LINE_ID);
+            statement.setInt(1, betLineId);
+            statement.executeUpdate();
+        } catch (SQLException e) {
+            throw new DAOException("Exception during search odd by bet line id", e);
+        } finally {
+            closeStatement(statement);
+        }
+    }
+    /**
+     * Find match by bet line id.
+     *
+     * @param betLineId the bet line id
+     * @throws DAOException the DAO exception
+     */
+    public void findMatchByBetLineId(int betLineId) throws DAOException {
+        PreparedStatement statement = null;
+        try {
+            statement = connection.prepareStatement(SQL_FIND_MATCH_BY_BET_LINE_ID);
+            statement.setInt(1, betLineId);
+            statement.executeUpdate();
+        } catch (SQLException e) {
+            throw new DAOException("Exception during search match by bet line id", e);
+        } finally {
+            closeStatement(statement);
+        }
+    }
+
+    /**
+     * Find outcome by bet line id.
+     *
+     * @param betLineId the bet line id
+     * @throws DAOException the DAO exception
+     */
+    public void findOutcomeByBetLineId(int betLineId) throws DAOException {
+        PreparedStatement statement = null;
+        try {
+            statement = connection.prepareStatement(SQL_FIND_OUTCOME_BY_BET_LINE_ID);
+            statement.setInt(1, betLineId);
+            statement.executeUpdate();
+        } catch (SQLException e) {
+            throw new DAOException("Exception during search outcome by bet line id", e);
+        } finally {
+            closeStatement(statement);
+        }
+    }
+
+
 
 }

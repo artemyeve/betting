@@ -3,6 +3,7 @@ package by.artemyeu.betting.entity;
 import java.math.BigDecimal;
 import java.math.RoundingMode;
 import java.time.LocalDateTime;
+import java.util.Date;
 
 
 /**
@@ -11,7 +12,7 @@ import java.time.LocalDateTime;
 public class Bet extends Entity {
     private int betId;
     private BigDecimal betAmount;
-    private LocalDateTime betDate;
+    private Date betDate;
     private boolean active;
     private int userId;
 
@@ -25,7 +26,7 @@ public class Bet extends Entity {
      * @param active the bet active/inactive
      * @param userId the user id
      */
-    public Bet(int betId, BigDecimal betAmount, LocalDateTime betDate, boolean active, int userId) {
+    public Bet(int betId, BigDecimal betAmount, Date betDate, boolean active, int userId) {
         this.betId = betId;
         this.betAmount = betAmount.setScale(4, RoundingMode.DOWN);;
         this.betDate = betDate;
@@ -49,11 +50,11 @@ public class Bet extends Entity {
         this.betAmount = betAmount;
     }
 
-    public LocalDateTime getBetDate() {
+    public Date getBetDate() {
         return betDate;
     }
 
-    public void setBetDate(LocalDateTime betDate) {
+    public void setBetDate(Date betDate) {
         this.betDate = betDate;
     }
 

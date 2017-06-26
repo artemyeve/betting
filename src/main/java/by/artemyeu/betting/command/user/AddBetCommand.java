@@ -45,6 +45,7 @@ public class AddBetCommand extends AbstractCommand {
                 String userId = sessionRequestContent.getRequestParameter(USER_ID_PARAM);
 
                 try {
+
                     String res = betLogic.addBet(betAmount,betDate,active,userId);
                     if (SUCCESS.equals(res)) {
 

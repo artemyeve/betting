@@ -58,6 +58,17 @@ public class MessageManager {
     public final static String NOT_UNIQUE_LOGIN="message.signup.unique.login";
 
 
+    /** The Constant OUTCOME_ERROR. */
+    public final static String ADD_OUTCOME_ERROR="message.add.outcome.error";
+
+    /** The Constant OUTCOME_SUCCESS. */
+    public final static String ADD_OUTCOME_SUCCESS="message.add.outcome.success";
+    /** The Constant DELETE_OUTCOME_SUCCESS. */
+    public final static String DELETE_OUTCOME_SUCCESS="message.delete.outcome.success";
+
+    /** The Constant EDIT_OUTCOME_SUCCESS. */
+    public final static String EDIT_OUTCOME_SUCCESS="message.delete.edit.success";
+
     /** The Constant BET_ERROR. */
     public final static String ADD_BET_ERROR="message.add.bet.error";
 

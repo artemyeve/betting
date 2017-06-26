@@ -42,7 +42,7 @@ public class ShowTournamentCommand extends AbstractCommand {
         }
         MatchLogic matchLogic = new MatchLogic();
         try {
-            List<Match> matchList = matchLogic.findMatchesByTournament(tournament);
+            List<Match> matchList = matchLogic.findMatchByTournament(tournament);
             sessionRequestContent.setSessionAttribute(TOURNAMENT_PARAMETER,tournament);
             sessionRequestContent.setSessionAttribute(MATCH_LIST_ATTR, matchList);
             sessionRequestContent.setSessionAttribute(IS_DELETED, false);

@@ -39,8 +39,8 @@ public class UserDAO extends AbstractDAO<User> {
     /** The Constant SQL_CHANGE_PASS. */
     private static final String SQL_CHANGE_PASS = "UPDATE user SET password=? WHERE id=?";
 
-    /** The Constant SQL_DELETE_USER. */
-    private static final String SQL_DELETE_USER = "DELETE FROM user WHERE id = ?";
+    /** The Constant SQL_DELETE_USER_BY_ID. */
+    private static final String SQL_DELETE_USER_BY_ID = "DELETE FROM user WHERE id = ?";
 
     /** The Constant SQL_SELECT_ALL_CLIENTS. */
     private static final String SQL_SELECT_ALL_CLIENTS = "SELECT user.id, user.first_name,user.second_name,user.login,\n"+
@@ -410,6 +410,25 @@ public class UserDAO extends AbstractDAO<User> {
             closeStatement(statement);
         }
         return user;
+    }
+
+    /**
+     * Delete user by id.
+     *
+     * @param id the id
+     * @throws DAOException the DAO exception
+     */
+    public void deleteUserById(int id) throws DAOException {
+        PreparedStatement statement = null;
+        try {
+            statement = connection.prepareStatement(SQL_DELETE_USER_BY_ID);
+            statement.setInt(1, id);
+            ResultSet set = statement.executeQuery();
+        } catch (SQLException e) {
+            throw new DAOException("Exception during drop user by id ", e);
+        } finally {
+            closeStatement(statement);
+        }
     }
 
 }

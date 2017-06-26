@@ -37,7 +37,7 @@ public class ShowActiveMatchCommand extends AbstractCommand {
         String page;
         MatchLogic matchLogic = new MatchLogic();
         try {
-            List<Match> matchList = matchLogic.findActiveMatches();
+            List<Match> matchList = matchLogic.findAllActiveMatches();
             sessionRequestContent.setSessionAttribute(IS_DELETED, false);
             sessionRequestContent.setRequestAttribute(SEARCH_ATTR, true);
             sessionRequestContent.setSessionAttribute(MATCH_LIST_ATTR, matchList);

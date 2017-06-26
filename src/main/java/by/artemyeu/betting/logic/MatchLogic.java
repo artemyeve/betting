@@ -36,19 +36,15 @@ public class MatchLogic implements Messenger {
      * @param matchDate     the match date
      * @throws LogicException the logic exception
      */
-    public String addMatch(String tournament, String homeTeam, String awayTeam, String homeTeamGoals, String awayTeamGoals,
-                           String matchDate) throws LogicException {
+    public String addMatch(String tournament, String homeTeam, String awayTeam, int homeTeamGoals, int awayTeamGoals,
+                           Date matchDate) throws LogicException {
 
         ProxyConnection connection = ConnectionPool.getInstance().getConnection();
         MatchDAO matchDAO = new MatchDAO(connection);
         try {
-            int intHomeTeamGoals = Integer.valueOf(homeTeamGoals);
-            int intAwayTeamGoals = Integer.valueOf(awayTeamGoals);
-            SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
-            Date finalMatchDate = formatter.parse(matchDate);
-            matchDAO.addMatch(tournament, homeTeam, awayTeam, intHomeTeamGoals, intAwayTeamGoals, finalMatchDate);
+            matchDAO.addMatch(tournament, homeTeam, awayTeam, homeTeamGoals, awayTeamGoals, matchDate);
             return SUCCESS;
-        } catch (ParseException | DAOException e) {
+        } catch (DAOException e) {
             throw new LogicException("Exception during match addition", e);
         } finally {
             matchDAO.closeConnection(connection);
@@ -268,7 +264,41 @@ public class MatchLogic implements Messenger {
             matchDAO.closeConnection(connection);
         }
     }
-
-
+    /**
+     * Find matches by date.
+     *
+     * @param matchDate the match date
+     * @return the match
+     * @throws LogicException the logic exception
+     */
+    public List<Match> findMatchByDate(Date matchDate) throws LogicException {
+        ProxyConnection connection = ConnectionPool.getInstance().getConnection();
+        MatchDAO matchDAO = new MatchDAO(connection);
+        try {
+            return matchDAO.findMatchesByDate(matchDate);
+        } catch (DAOException e) {
+            throw new LogicException("Exception during match by date search", e);
+        } finally {
+            matchDAO.closeConnection(connection);
+        }
+    }
+    /**
+     * Find matches by tournament.
+     *
+     * @param tournament the tournament
+     * @return the match
+     * @throws LogicException the logic exception
+     */
+    public List<Match> findMatchByTournament(String tournament) throws LogicException {
+        ProxyConnection connection = ConnectionPool.getInstance().getConnection();
+        MatchDAO matchDAO = new MatchDAO(connection);
+        try {
+            return matchDAO.findMatchesByTournament(tournament);
+        } catch (DAOException e) {
+            throw new LogicException("Exception during match by tournament search", e);
+        } finally {
+            matchDAO.closeConnection(connection);
+        }
+    }
 
 }

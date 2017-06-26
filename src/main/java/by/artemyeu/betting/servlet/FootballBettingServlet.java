@@ -97,7 +97,7 @@ public class FootballBettingServlet extends HttpServlet implements ServletContex
 
         CommandCreator client = new CommandCreator();
         AbstractCommand command = client.defineCommand(sessionRequestContent);
-        String page;
+
 
     }
 }
