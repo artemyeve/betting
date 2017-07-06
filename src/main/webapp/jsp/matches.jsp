@@ -19,42 +19,38 @@
         <div class="alert alert-success">${success}</div>
     </c:if>
     <c:choose>
-        <c:when test="${fn:length(matches_list)eq 0}">
+        <c:when test="${fn:length(match_list)eq 0}">
             <h2><fmt:message key="match.empty"/></h2>
         </c:when>
         <c:otherwise>
-            <c:set var="number_of_pages" value="${fn:length(matches_list)/5 +1}" scope="request"/>
+            <c:set var="number_of_pages" value="${fn:length(match_list)/10 +1}" scope="request"/>
             <table class="table table-striped">
                 <thead>
                 <tr>
-                    <th><fmt:message key="add.match.tournament"/></th>
-                    <th><fmt:message key="add.match.homeTeam"/></th>
-                    <th><fmt:message key="add.match.awayTeam"/></th>
-                    <th><fmt:message key="add.match.homeTeamGoals"/></th>
-                    <th><fmt:message key="add.match.awayTeamGoals"/></th>
-                    <th><fmt:message key="add.match.matchDate"/></th>
+                    <th colspan="6"></th>
+                    <th><fmt:message key="match.home.win"/></th>
+                    <th><fmt:message key="match.draw"/></th>
+                    <th><fmt:message key="match.away.win"/></th>
                 </tr>
                 </thead>
                 <tbody id="myTable">
-                <c:forEach var="match" items="${matches_list}" begin="${num_page * 5}" end="${num_page * 5 + 4}">
+                <c:forEach var="match" items="${match_list}" begin="${num_page * 10}" end="${num_page * 10 + 9}">
                     <tr>
-                        <td>${match.tournament}</td>
-                        <td>${match.homeTeam}</td>
-                        <td>${match.awayTeam}</td>
-                        <td>${match.homeTeamGoals}</td>
-                        <td>${match.awayTeamGoals}</td>
-                        <td>${match.matchDate}</td>
+                        <td width="5%">${match.tournament}</td>
+                        <td width="10%">${match.homeTeam}</td>
+                        <td width="10%">${match.awayTeam}</td>
+                        <td width="5%">${match.homeTeamGoals}</td>
+                        <td width="5%">${match.awayTeamGoals}</td>
+                        <td width="20%">${match.matchDate}</td>
+                        <td width="5%">1.3</td>
+                        <td width="5%">2.7</td>
+                        <td width="5%">3.5</td>
                         <ctg:notDeleted>
-                            <td>
-                                <button class="btn btn-link"
-                                        onClick='location.href="${pageContext.request.contextPath}/controller?command=matches_info&match_id=${match.id}"'>
-                                    <fmt:message key="match.more"/>
-                                </button>
-                            </td>
+
                             <td>
                                 <ctg:isAdmin>
                                     <button class="btn btn-info"
-                                            onclick='location.href="${pageContext.request.contextPath}/controller?command=delete&match_id=${match.id}"'>
+                                            onclick='location.href="${pageContext.request.contextPath}/controller?command=delete&match_id=${match.matchId}"'>
                                         <i class="glyphicon glyphicon-trash"></i>
                                         <fmt:message key="match.delete"/>
                                     </button>
@@ -65,7 +61,7 @@
                                     <c:choose>
                                         <c:when test="${not empty is_my_bets}">
                                             <button class="btn btn-primary"
-                                                    onclick='location.href="${pageContext.request.contextPath}/controller?command=bet&match_id=${match.id}"'>
+                                                    onclick='location.href="${pageContext.request.contextPath}/controller?command=bet&match_id=${match.matchId}"'>
                                                 <i class="glyphicon glyphicon-credit-card"></i>
                                                 <fmt:message key="match.bet"/>
                                             </button>

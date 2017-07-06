@@ -1,7 +1,6 @@
 package by.artemyeu.betting.command;
 
 import by.artemyeu.betting.command.admin.*;
-import by.artemyeu.betting.command.admin.AllMatchesCommand;
 import by.artemyeu.betting.command.user.*;
 import by.artemyeu.betting.command.visitor.*;
 
@@ -24,9 +23,14 @@ public enum CommandType {
             this.command = new AllMatchesCommand();
         }
     },
+    BET{
+        {
+            this.command = new BetCommand();
+        }
+    },
     CHANGE{
         {
-            this.command = new ChangePageCommand();
+            this.command = new ChangeCommand();
         }
     },
     CHANGE_PAGE{
@@ -75,11 +79,11 @@ public enum CommandType {
             this.command = new MainCommand();
         }
     },
-    MY_BETS{
+    /*MY_BETS{
         {
             this.command= new AllBetsCommand();
         }
-    },
+    },*/
 
     SEARCH{
         {

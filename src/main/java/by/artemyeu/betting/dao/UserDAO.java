@@ -19,51 +19,46 @@ import java.util.List;
 public class UserDAO extends AbstractDAO<User> {
 
     /** The Constant SQL_ADD_USER. */
-    private static final String SQL_ADD_USER = "INSERT INTO user(first_name,second_name,login,password,email) VALUES(?,?,?,?,?)";
+    private static final String SQL_ADD_USER = "INSERT INTO bets.user(first_name,second_name,login,password,email) VALUES(?,?,?,?,?)";
 
        /** The Constant SQL_CHANGE_BALANCE. */
-    private static final String SQL_CHANGE_CASH = "UPDATE account SET balance=? WHERE id=?";
+    private static final String SQL_CHANGE_CASH = "UPDATE bets.user SET balance=? WHERE id=?";
 
     /** The Constant SQL_CHANGE_FIRST_NAME. */
-    private static final String SQL_CHANGE_FIRST_NAME = "UPDATE user SET first_name=? WHERE id=?";
+    private static final String SQL_CHANGE_FIRST_NAME = "UPDATE bets.user SET first_name=? WHERE id=?";
 
     /** The Constant SQL_CHANGE_SECOND_NAME. */
-    private static final String SQL_CHANGE_SECOND_NAME = "UPDATE user SET second_name=? WHERE id=?";
+    private static final String SQL_CHANGE_SECOND_NAME = "UPDATE bets.user SET second_name=? WHERE id=?";
 
     /** The Constant SQL_CHANGE_EMAIL. */
-    private static final String SQL_CHANGE_EMAIL = "UPDATE user SET email=? WHERE id=?";
+    private static final String SQL_CHANGE_EMAIL = "UPDATE bets.user SET email=? WHERE id=?";
 
     /** The Constant SQL_CHANGE_LOGIN. */
-    private static final String SQL_CHANGE_LOGIN = "UPDATE user SET login=? WHERE id=?";
+    private static final String SQL_CHANGE_LOGIN = "UPDATE bets.user SET login=? WHERE id=?";
 
     /** The Constant SQL_CHANGE_PASS. */
-    private static final String SQL_CHANGE_PASS = "UPDATE user SET password=? WHERE id=?";
+    private static final String SQL_CHANGE_PASS = "UPDATE bets.user SET password=? WHERE id=?";
 
     /** The Constant SQL_DELETE_USER_BY_ID. */
-    private static final String SQL_DELETE_USER_BY_ID = "DELETE FROM user WHERE id = ?";
+    private static final String SQL_DELETE_USER_BY_ID = "DELETE FROM bets.user WHERE id = ?";
 
     /** The Constant SQL_SELECT_ALL_CLIENTS. */
-    private static final String SQL_SELECT_ALL_CLIENTS = "SELECT user.id, user.first_name,user.second_name,user.login,\n"+
-            "user.password,user.email FROM user WHERE user.role='bettor'\n"+
-            " ORDER BY user.login";
+    private static final String SQL_SELECT_ALL_CLIENTS = "SELECT id, first_name,second_name,login,password,email FROM bets.user";
 
     /** The Constant SQL_SELECT_CASH. */
-    private static final String SQL_SELECT_CASH = "SELECT balance FROM account WHERE id=?";
+    private static final String SQL_SELECT_CASH = "SELECT balance FROM bets.user WHERE id=?";
 
     /** The Constant SQL_SELECT_PASSWORD_BY_LOGIN. */
-    private static final String SQL_SELECT_PASSWORD_BY_LOGIN = "SELECT password FROM user WHERE login=?";
+    private static final String SQL_SELECT_PASSWORD_BY_LOGIN = "SELECT password FROM bets.user WHERE login=?";
 
     /** The Constant SQL_SELECT_USER_BY_ID. */
-    private static final String SQL_SELECT_USER_BY_ID = "SELECT first_name,second_name,login,\n" +
-            "password,email FROM user WHERE id=?";
+    private static final String SQL_SELECT_USER_BY_ID = "SELECT first_name,second_name,login,password,email FROM bets.user WHERE id=?";
 
     /** The Constant SQL_SELECT_USER_BY_LOGIN. */
-    private static final String SQL_SELECT_USER_BY_LOGIN = "SELECT id, first_name,second_name,\n" +
-             "password,email FROM user WHERE login=?";
+    private static final String SQL_SELECT_USER_BY_LOGIN = "SELECT id, first_name,second_name,login,password,email,role,balance FROM bets.user WHERE login=?";
 
     /** The Constant SQL_SELECT_USER_BY_EMAIL. */
-    private static final String SQL_SELECT_USER_BY_EMAIL = "SELECT id, first_name,second_name,login\n" +
-            "password FROM user WHERE email=?";
+    private static final String SQL_SELECT_USER_BY_EMAIL = "SELECT id, first_name,second_name,login,password FROM bets.user WHERE email=?";
 
     /**
      * Instantiates a new user DAO.
@@ -105,15 +100,15 @@ public class UserDAO extends AbstractDAO<User> {
     /**
      * Change cash.
      * @param cash the cash
-     * @param accountId the account id
+     * @param userId the user id
      * @throws DAOException the DAO exception
      */
-    public void changeCash(BigDecimal cash,int accountId) throws DAOException {
+    public void changeCash(BigDecimal cash,int userId) throws DAOException {
         PreparedStatement statement = null;
         try {
             statement = connection.prepareStatement(SQL_CHANGE_CASH);
             statement.setBigDecimal(1, cash);
-            statement.setInt(2, accountId);
+            statement.setInt(2, userId);
             statement.executeUpdate();
         } catch (SQLException e) {
             throw new DAOException("Exception during cash change", e);
@@ -257,13 +252,14 @@ public class UserDAO extends AbstractDAO<User> {
         try {
             if (set.next()) {
                 int id = set.getInt("id");
-                String firstName = set.getString("firstName");
-                String secondName = set.getString("secondName");
+                String firstName = set.getString("first_name");
+                String secondName = set.getString("second_name");
                 String login = set.getString("login");
                 String password = set.getString("password");
                 String email = set.getString("email");
-                UserRole role = UserRole.valueOf(set.getString("role"));
-                return new User(id, firstName,secondName,login, password,email, role);
+                UserRole role = UserRole.valueOf(set.getString("role").toUpperCase());
+                BigDecimal balance = BigDecimal.valueOf(set.getDouble("balance"));
+                return new User(id, firstName,secondName,login, password,email, role,balance);
             } else {
                 return null;
             }
@@ -296,18 +292,18 @@ public class UserDAO extends AbstractDAO<User> {
     /**
      * Find cash.
      *
-     * @param accountId the account id
+     * @param userId the user id
      * @return the BigDecimal
      * @throws DAOException the DAO exception
      */
-    public BigDecimal findCash(int accountId) throws DAOException {
+    public BigDecimal findCash(int userId) throws DAOException {
         PreparedStatement statement = null;
         try {
             statement = connection.prepareStatement(SQL_SELECT_CASH);
-            statement.setInt(1, accountId);
+            statement.setInt(1, userId);
             ResultSet set = statement.executeQuery();
             if (set.next()) {
-                return set.getBigDecimal("cash_account");
+                return set.getBigDecimal("balance");
             } else {
                 return BigDecimal.ZERO;
             }

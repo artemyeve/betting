@@ -16,9 +16,9 @@ public class ChangeCommand extends AbstractCommand {
     /** The Constant USER_ATTR. */
     private static final String USER_ATTR = "user";
     /** The Constant PARAM_FIRST_NAME. */
-    private static final String PARAM_FIRST_NAME = "first_name";
+    private static final String PARAM_FIRST_NAME = "firstName";
     /** The Constant PARAM_SECOND_NAME. */
-    private static final String PARAM_SECOND_NAME = "second_name";
+    private static final String PARAM_SECOND_NAME = "secondName";
 
     /** The Constant PARAM_LOGIN. */
     private static final String PARAM_LOGIN = "login";
@@ -50,6 +50,15 @@ public class ChangeCommand extends AbstractCommand {
                     res = userLogic.changeFirstName(user.getId(), firstName);
                     if (SUCCESS.equals(res)) {
                         user.setFirstName(firstName);
+                    } else {
+                        sessionRequestContent.setRequestAttribute(ERROR, res);
+                        return ConfigurationManager.getProperty(ConfigurationManager.CHANGE_PATH);
+                    }
+                }
+                if (!secondName.equals(user.getSecondName())) {
+                    res = userLogic.changeSecondName(user.getId(), secondName);
+                    if (SUCCESS.equals(res)) {
+                        user.setSecondName(secondName);
                     } else {
                         sessionRequestContent.setRequestAttribute(ERROR, res);
                         return ConfigurationManager.getProperty(ConfigurationManager.CHANGE_PATH);

@@ -59,19 +59,16 @@ public class BetDAO extends AbstractDAO {
     /**
      * Adds the bet.
      * @param betAmount the bet amount
-     * @param betDate the bet date
      * @param userId the user id
      * @throws DAOException the DAO exception
      */
-    public void addBet(BigDecimal betAmount,Date betDate, int userId) throws DAOException {
+    public void addBet(BigDecimal betAmount,int userId) throws DAOException {
         PreparedStatement statement = null;
         try {
             DateTimeFormatter formatter = DateTimeFormatter.ofPattern(DATE_PATTERN);
-            LocalDateTime now=LocalDateTime.now();
-            String dateTime = now.format(formatter);
             statement = connection.prepareStatement(SQL_ADD_BET);
             statement.setBigDecimal(1, betAmount);
-            statement.setDate(2, new java.sql.Date(betDate.getTime()));
+            statement.setDate(2, new java.sql.Date(System.currentTimeMillis()));
             statement.setInt(3, userId);
             statement.executeUpdate();
         } catch (SQLException e) {

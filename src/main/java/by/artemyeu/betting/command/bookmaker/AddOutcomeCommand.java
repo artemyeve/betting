@@ -17,7 +17,7 @@ public class AddOutcomeCommand extends AbstractCommand {
     /** The Constant RESULT_ATTR. */
     private static final String RESULT_ATTR = "result";
     /** The match id param. */
-    private final String MATCH_ID_PARAMETER = "odd";
+    private final String MATCH_ID_PARAMETER = "match_id";
     /** The outcome param. */
     private final String OUTCOME_PARAMETER = "outcome";
     /** The odd param. */
@@ -28,7 +28,7 @@ public class AddOutcomeCommand extends AbstractCommand {
     public String execute(SessionRequestContent sessionRequestContent) {
         String page;
         User user = (User) sessionRequestContent.getSessionAttribute(USER_ATTRIBUTE);
-        if (user != null && user.getRole() == UserRole.BOOKMAKER) {
+        if (user != null && user.getRole() == UserRole.ADMIN) {
             boolean result = Boolean.valueOf(sessionRequestContent.getRequestAttribute(RESULT_ATTR).toString());
             if (result) {
                 BetLineLogic betLineLogic = new BetLineLogic();

@@ -33,7 +33,7 @@
                   <c:set var="page" value="path.page.home" scope="session"/>
                   <h2 class="sub-header"><fmt:message key="match.back"/></h2>
               </c:otherwise>
-          </c:choose>s
+          </c:choose>
           <%@include file="matches.jsp"%>
       </div>
     </div>

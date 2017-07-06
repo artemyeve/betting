@@ -31,6 +31,13 @@
                 </a>
             </ctg:isAdmin>
         </li>
+        <li>
+            <ctg:isAdmin>
+                <a href="${pageContext.request.contextPath}/controller?command=show_users">
+                    <fmt:message key="sidebar.users"/>
+                </a>
+            </ctg:isAdmin>
+        </li>
     </ul>
 </div>
 </body>

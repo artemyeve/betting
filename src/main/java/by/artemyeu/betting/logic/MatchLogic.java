@@ -192,13 +192,13 @@ public class MatchLogic implements Messenger {
      */
     public void deleteMatchById(int id) throws LogicException {
         ProxyConnection connection = ConnectionPool.getInstance().getConnection();
-        MatchDAO trackDAO = new MatchDAO(connection);
+        MatchDAO matchDAO = new MatchDAO(connection);
         try {
-            trackDAO.deleteMatchById(id);
+            matchDAO.deleteMatchById(id);
         } catch (DAOException e) {
             throw new LogicException("Exception during match removal", e);
         } finally {
-            trackDAO.closeConnection(connection);
+            matchDAO.closeConnection(connection);
         }
     }
 

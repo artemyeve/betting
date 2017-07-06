@@ -33,8 +33,8 @@ public class ShowMatchDateCommand extends AbstractCommand {
      */
     @Override
     public String execute(SessionRequestContent sessionRequestContent) {
-        String page;
-        String matchDate= sessionRequestContent.getRequestParameter(MATCH_DATE_PARAMETER);
+        String page=null;
+        /*String matchDate= sessionRequestContent.getRequestParameter(MATCH_DATE_PARAMETER);
         if(matchDate==null){
             matchDate= sessionRequestContent.getSessionAttribute(MATCH_DATE_PARAMETER).toString();
         }
@@ -49,7 +49,7 @@ public class ShowMatchDateCommand extends AbstractCommand {
         } catch (LogicException e) {
             LOG.error("Exception during matches by match date search",e);
             page = redirectToErrorPage(sessionRequestContent, e);
-        }
+        }*/
         return page;
     }
 }

@@ -11,10 +11,11 @@ import by.artemyeu.betting.servlet.SessionRequestContent;
  * Created by Acer on 06.06.2017.
  */
 public class SingUpCommand extends AbstractCommand {
+
     /** The Constant PARAM_FIRST_NAME. */
-    private static final String PARAM_FIRST_NAME = "first name";
+    private static final String PARAM_FIRST_NAME = "firstName";
     /** The Constant PARAM_SECOND_NAME. */
-    private static final String PARAM_SECOND_NAME = "second name";
+    private static final String PARAM_SECOND_NAME = "secondName";
 
     /** The Constant PARAM_LOGIN. */
     private static final String PARAM_LOGIN = "login";

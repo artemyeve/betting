@@ -37,7 +37,7 @@
     <div class="row">
         <label class="control-label"><fmt:message key="error.exception"/> ${pageContext.errorData.throwable}</label>
     </div>
-    <button class="btn btn-lg btn-primary "
+       <button class="btn btn-lg btn-primary "
             onClick='location.href="${pageContext.request.contextPath}/controller?command=main"'>
         <fmt:message key="form.back"/></button>
 </div>

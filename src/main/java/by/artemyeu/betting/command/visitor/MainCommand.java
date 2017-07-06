@@ -30,7 +30,7 @@ public class MainCommand extends AbstractCommand {
         try{
             matchList=matchLogic.findAllMatches();
         }catch (LogicException e){
-            LOG.error("Exception during last ordered tracks search",e);
+            LOG.error("Exception during all matches search",e);
         }
         sessionRequestContent.setSessionAttribute(NUM_PAGE, 0);
         sessionRequestContent.setSessionAttribute(MATCH_LIST_ATTR, matchList);

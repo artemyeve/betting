@@ -3,11 +3,7 @@ package by.artemyeu.betting.servlet;
 import by.artemyeu.betting.pool.ConnectionPool;
 import by.artemyeu.betting.command.AbstractCommand;
 import by.artemyeu.betting.command.CommandCreator;
-
-
-import org.apache.logging.log4j.LogManager;
-import org.apache.logging.log4j.Logger;
-
+import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletContextEvent;
 import javax.servlet.ServletContextListener;
 import javax.servlet.ServletException;
@@ -27,7 +23,7 @@ import java.io.IOException;
 @MultipartConfig(fileSizeThreshold = 1024 * 1024 , // 1MB
         maxFileSize = 1024 * 1024 * 20,      // 20MB
         maxRequestSize = 1024 * 1024 * 50)   // 50MB
-@WebServlet("/controller")
+@WebServlet(name = "controller", urlPatterns = {"/controller"})
 public class FootballBettingServlet extends HttpServlet implements ServletContextListener {
 
 
@@ -94,10 +90,13 @@ public class FootballBettingServlet extends HttpServlet implements ServletContex
 
         SessionRequestContent sessionRequestContent = new SessionRequestContent();
         sessionRequestContent.extractValues(request);
-
+        String page;
         CommandCreator client = new CommandCreator();
         AbstractCommand command = client.defineCommand(sessionRequestContent);
-
+        page = command.execute(sessionRequestContent);
+        sessionRequestContent.insertAttributes(request);
+        RequestDispatcher dispatcher = getServletContext().getRequestDispatcher(page);
+        dispatcher.forward(request, response);
 
     }
 }

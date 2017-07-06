@@ -17,7 +17,6 @@ public class SearchUsersCommand extends AbstractCommand {
     private final String FIND_PARAMETER = "find";
     private final String USER_LIST_ATTR = "users";
 
-
     /**
      * Execute.
      *

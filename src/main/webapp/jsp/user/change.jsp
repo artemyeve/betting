@@ -51,13 +51,10 @@
       </div>
         <div class="form-group">
           <div class="col-sm-offset-3 col-sm-9 m-t-15">
-              <button type="submit" name="command" value="change" class="btn btn-primary">
-                  <fmt:message key="profile.change"/>
+              <button type="submit" name="command" value="change" class="btn btn-primary"><fmt:message key="profile.change"/>
               </button>
               <button type="reset" class="btn btn-default m-l-5"><fmt:message key="form.cancel"/></button>
-              <button type="button" class="btn btn-primary"
-                      onClick='location.href="profile.jsp"'>
-                    <fmt:message key="form.back"/>
+              <button type="button" class="btn btn-primary" onClick='location.href="profile.jsp"'><fmt:message key="form.back"/>
               </button>
           </div>
       </div>

@@ -31,33 +31,33 @@ public class ConnectionPool {
     private static ConnectionPool instance;
 
     /** The db. */
-    private static InitDB db;
+    private static InitDB DB;
 
 
     /**
      * Instantiates a new connection pool.
      */
     private ConnectionPool() {
-        db=new InitDB();
-        this.connectionQueue = new ArrayBlockingQueue<>(db.POOL_SIZE);
+        DB=new InitDB();
+        this.connectionQueue = new ArrayBlockingQueue<>(DB.POOL_SIZE);
         try {
             DriverManager.registerDriver(new com.mysql.jdbc.Driver());
         }catch (SQLException e){
             LOG.fatal("Exception during driver registration",e);
             throw new RuntimeException(e);
         }
-        for (int i = 0; i < db.POOL_SIZE; i++) {
+        for (int i = 0; i < DB.POOL_SIZE; i++) {
             createConnection();
         }
 
-        if (size() != db.POOL_SIZE) {
-            int number = db.POOL_SIZE - connectionQueue.size();
+        if (connectionQueue.size() != DB.POOL_SIZE) {
+            int number = DB.POOL_SIZE - connectionQueue.size();
             LOG.warn(number + " connections should be recreated");
             for (int i = 0; i < number; i++) {
                 createConnection();
             }
         }
-        if (size() == 0) {
+        if (connectionQueue.size() == 0) {
             LOG.fatal("There's no connections in the pull");
             throw new RuntimeException("There's no connections in the pull");
         }
@@ -68,7 +68,7 @@ public class ConnectionPool {
      */
     private void createConnection(){
         try {
-            Connection connection = DriverManager.getConnection(db.DATABASE_URL, db.DATABASE_LOGIN, db.DATABASE_PASS);
+            Connection connection = DriverManager.getConnection(DB.DATABASE_URL, DB.DATABASE_LOGIN, DB.DATABASE_PASS);
             ProxyConnection proxyConnection = new ProxyConnection(connection);
             this.connectionQueue.put(proxyConnection);
         } catch (SQLException | InterruptedException e) {
@@ -116,7 +116,7 @@ public class ConnectionPool {
      */
     public void terminatePool() {
         try {
-            for (int i = 0; i < db.POOL_SIZE; i++) {
+            for (int i = 0; i < DB.POOL_SIZE; i++) {
                 connectionQueue.take().terminateConnection();
             }
         } catch (SQLException | InterruptedException e) {
@@ -137,12 +137,4 @@ public class ConnectionPool {
         }
     }
 
-    /**
-     * Size.
-     *
-     * @return the int
-     */
-    private int size(){
-        return connectionQueue.size();
-    }
-}
+   }

@@ -1,5 +1,7 @@
 package by.artemyeu.betting.entity;
 
+import java.math.BigDecimal;
+
 /**
  * Created by Acer on 01.06.2017.
  */
@@ -11,6 +13,7 @@ public class User extends Entity{
     private String password;
     private String email;
     private UserRole role;
+    private BigDecimal balance;
 
     /**
      * Instantiates a new user.
@@ -22,8 +25,9 @@ public class User extends Entity{
      * @param password the password
      * @param email the email
      * @param role the role
+     * @param balance the balance
      */
-    public User(int id, String firstName, String secondName, String login, String password, String email, UserRole role) {
+    public User(int id, String firstName, String secondName, String login, String password, String email, UserRole role,BigDecimal balance) {
         this.id = id;
         this.firstName = firstName;
         this.secondName = secondName;
@@ -31,6 +35,7 @@ public class User extends Entity{
         this.password = password;
         this.email = email;
         this.role = role;
+        this.balance = balance;
     }
 
     public User(int id, String login) {
@@ -93,5 +98,13 @@ public class User extends Entity{
 
     public void setRole(UserRole role) {
         this.role = role;
+    }
+
+    public BigDecimal getBalance() {
+        return balance;
+    }
+
+    public void setBalance(BigDecimal balance) {
+        this.balance = balance;
     }
 }

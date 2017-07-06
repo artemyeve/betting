@@ -25,15 +25,15 @@ public class AddFundsCommand extends AbstractCommand {
             User user = (User) sessionRequestContent.getSessionAttribute(USER_ATTRIBUTE);
             String cash = sessionRequestContent.getRequestParameter(PARAM_CASH);
             UserLogic userLogic = new UserLogic();
-                try {
-                    userLogic.addFunds(user, cash);
-                    sessionRequestContent.setRequestAttribute(SUCCESS, messageManager.getProperty(MessageManager.CHANGE_SUCCESS));
-                    sessionRequestContent.setSessionAttribute(USER_ATTRIBUTE, user);
-                    page = ConfigurationManager.getProperty(ConfigurationManager.PROFILE_PATH);
-                } catch (LogicException e) {
-                    LOG.error("Exception funds addition command", e);
-                    page = redirectToErrorPage(sessionRequestContent, e);
-                }
+            try {
+                userLogic.addFunds(user, cash);
+                sessionRequestContent.setRequestAttribute(SUCCESS, messageManager.getProperty(MessageManager.CHANGE_SUCCESS));
+                sessionRequestContent.setSessionAttribute(USER_ATTRIBUTE, user);
+                page = ConfigurationManager.getProperty(ConfigurationManager.PROFILE_PATH);
+            } catch (LogicException e) {
+                LOG.error("Exception funds addition command", e);
+                page = redirectToErrorPage(sessionRequestContent, e);
+            }
 
         } else {
             page = ConfigurationManager.getProperty(ConfigurationManager.HOME_PATH);

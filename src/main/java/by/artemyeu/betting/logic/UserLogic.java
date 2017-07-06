@@ -21,19 +21,20 @@ import java.util.List;
  */
 @SuppressWarnings("Duplicates")
 public class UserLogic implements Messenger {
+
     private final String SUCCESS = "success";
 
 
-    public String addFunds(Account account, BigDecimal newCash) throws LogicException {
+    public String addFunds(User user, String newCash) throws LogicException {
 
             ProxyConnection connection = ConnectionPool.getInstance().getConnection();
             UserDAO userDAO = new UserDAO(connection);
             try {
-                BigDecimal finalCash = account.getBalance().add(newCash);
-                userDAO.changeCash(finalCash,account.getId());
-                BigDecimal newUserCash = userDAO.findCash(account.getId());
+                BigDecimal finalCash = user.getBalance().add(new BigDecimal(newCash));
+                userDAO.changeCash(finalCash,user.getId());
+                BigDecimal newUserCash = userDAO.findCash(user.getId());
                 if (newUserCash.compareTo(BigDecimal.ZERO) > 0) {
-                    account.setBalance(newUserCash);
+                    user.setBalance(newUserCash);
                 }
                 return SUCCESS;
             } catch (DAOException e) {
@@ -49,7 +50,7 @@ public class UserLogic implements Messenger {
             ProxyConnection connection = ConnectionPool.getInstance().getConnection();
                 UserDAO userDAO = new UserDAO(connection);
                 try {
-                    userDAO.changeEmail(userId, newFirstName);
+                    userDAO.changeFirstName(userId, newFirstName);
                     return SUCCESS;
                 } catch (DAOException e) {
                     throw new LogicException("Error during changing first name", e);
@@ -67,10 +68,10 @@ public class UserLogic implements Messenger {
             ProxyConnection connection = ConnectionPool.getInstance().getConnection();
                 UserDAO userDAO = new UserDAO(connection);
                 try {
-                    userDAO.changeEmail(userId, newSecondName);
+                    userDAO.changeSecondName(userId, newSecondName);
                     return SUCCESS;
                 } catch (DAOException e) {
-                    throw new LogicException("Error during changing first name", e);
+                    throw new LogicException("Error during changing second name", e);
                 } finally {
                     userDAO.closeConnection(connection);
                 }

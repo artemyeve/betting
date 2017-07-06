@@ -14,7 +14,7 @@ import by.artemyeu.betting.servlet.SessionRequestContent;
  */
 public class DeleteMatchCommand extends AbstractCommand {
 
-    private final String MATCH_ID_PARAMETER = "matchId";
+    private final String MATCH_ID_PARAMETER = "match_id";
 
     /**
      * Execute.

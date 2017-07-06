@@ -37,7 +37,7 @@
               <h3><fmt:message key="profile.second.name"/> ${user.secondName}</h3>
           </div>
           <div>
-              <h3><fmt:message key="profile.balance"/> ${account.balance}</h3>
+              <h3><fmt:message key="profile.balance"/> ${user.balance}</h3>
           </div>
           <div>
               <h3><fmt:message key="profile.email"/> ${user.email}</h3>

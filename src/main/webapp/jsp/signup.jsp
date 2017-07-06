@@ -66,8 +66,7 @@
     </div>
        <div class="form-group">
         <div class="col-sm-offset-3 col-sm-9 m-t-15">
-            <button type="submit" name="command" value="signup" class="btn btn-primary"><fmt:message
-                    key="signup.submit"/></button>
+            <button type="submit" name="command" value="signup" class="btn btn-primary"><fmt:message key="signup.submit"/></button>
             <button type="reset" class="btn btn-default m-l-5"><fmt:message key="form.cancel"/></button>
             <button type="button" class="btn btn-primary "
                     onClick='location.href="${pageContext.request.contextPath}/controller?command=main"'>

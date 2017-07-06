@@ -7,7 +7,12 @@ import by.artemyeu.betting.pool.ProxyConnection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.text.DateFormat;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.time.Instant;
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
 
@@ -18,56 +23,46 @@ import java.util.List;
 public class MatchDAO extends AbstractDAO {
 
     /** The Constant SQL_ADD_MATCH. */
-    private static final String SQL_ADD_MATCH = "INSERT INTO match (tournament,home_team,away_team,home_team_goals,away_team_goals,match_date) VALUES (?,?,?,?,?,?)";
+    private static final String SQL_ADD_MATCH = "INSERT INTO bets.match (tournament,home_team,away_team,home_team_goals,away_team_goals,match_date) VALUES (?,?,?,?,?,?)";
 
     /** The Constant SQL_CHANGE_TOURNAMENT. */
-    private static final String SQL_CHANGE_TOURNAMENT = "UPDATE match SET tournament=? WHERE match_id=?";
+    private static final String SQL_CHANGE_TOURNAMENT = "UPDATE bets.match SET tournament=? WHERE match_id=?";
 
     /** The Constant SQL_CHANGE_HOME_TEAM. */
-    private static final String SQL_CHANGE_HOME_TEAM = "UPDATE match SET home_team=? WHERE match_id=?";
+    private static final String SQL_CHANGE_HOME_TEAM = "UPDATE bets.match SET home_team=? WHERE match_id=?";
 
     /** The Constant SQL_CHANGE_AWAY_TEAM. */
-    private static final String SQL_CHANGE_AWAY_TEAM = "UPDATE match SET away_team=? WHERE match_id=?";
+    private static final String SQL_CHANGE_AWAY_TEAM = "UPDATE bets.match SET away_team=? WHERE match_id=?";
 
     /** The Constant SQL_CHANGE_HOME_TEAM_GOALS. */
-    private static final String SQL_CHANGE_HOME_TEAM_GOALS = "UPDATE match SET home_team_goals=? WHERE match_id=?";
+    private static final String SQL_CHANGE_HOME_TEAM_GOALS = "UPDATE bets.match SET home_team_goals=? WHERE match_id=?";
 
     /** The Constant SQL_CHANGE_AWAY_TEAM_GOALS. */
-    private static final String SQL_CHANGE_AWAY_TEAM_GOALS = "UPDATE match SET away_team_goals=? WHERE match_id=?";
+    private static final String SQL_CHANGE_AWAY_TEAM_GOALS = "UPDATE bets.match SET away_team_goals=? WHERE match_id=?";
 
     /** The Constant SQL_CHANGE_MATCH_DATE. */
-    private static final String SQL_CHANGE_MATCH_DATE = "UPDATE match SET match_date=? WHERE match_id=?";
+    private static final String SQL_CHANGE_MATCH_DATE = "UPDATE bets.match SET match_date=? WHERE match_id=?";
 
     /** The Constant SQL_CHANGE_MATCH_STATUS. */
-    private static final String SQL_CHANGE_MATCH_STATUS = "UPDATE match SET active=? WHERE match_id=?";
+    private static final String SQL_CHANGE_MATCH_STATUS = "UPDATE bets.match SET active=? WHERE match_id=?";
 
     /** The Constant SQL_DELETE_MATCH. */
-    private static final String SQL_DELETE_MATCH = "DELETE FROM match WHERE match_id = ?";
+    private static final String SQL_DELETE_MATCH = "DELETE FROM bets.match WHERE match_id = ?";
 
     /** The Constant SQL_FIND_MATCH_BY_ID. */
-    private static final String SQL_FIND_MATCH_BY_ID = "SELECT tournament,home_team,\n" +
-            "away_team, home_team_goals,away_team_goals,match_date,active FROM match\n" +
-            "WHERE match_id=?";
+    private static final String SQL_FIND_MATCH_BY_ID = "SELECT tournament,home_team,away_team, home_team_goals,away_team_goals,match_date,active FROM bets.match WHERE match_id=?";
 
     /** The Constant SQL_FIND_MATCH_BY_TOURNAMENT. */
-    private static final String SQL_FIND_MATCH_BY_TOURNAMENT = "SELECT home_team,away_team,\n" +
-            "home_team_goals,away_team_goals,match_date,active FROM match\n" +
-            "WHERE tournament=?";
+    private static final String SQL_FIND_MATCH_BY_TOURNAMENT = "SELECT home_team,away_team,home_team_goals,away_team_goals,match_date,active FROM bets.match WHERE tournament=?";
 
     /** The Constant SQL_FIND_MATCH_BY_MATCH_DATE. */
-    private static final String SQL_FIND_MATCH_BY_MATCH_DATE = "SELECT tournament,home_team,\n" +
-            "away_team,home_team_goals,away_team_goals,match_date,active FROM match\n" +
-            "WHERE match_date=?";
+    private static final String SQL_FIND_MATCH_BY_MATCH_DATE = "SELECT tournament,home_team,away_team,home_team_goals,away_team_goals,match_date,active FROM bets.match WHERE match_date=?";
 
     /** The Constant SQL_FIND_ALL_MATCHES. */
-    private static final String SQL_FIND_ALL_MATCHES = "SELECT match_id,tournament,home_team,\n" +
-            "away_team, home_team_goals,away_team_goals,match_date,active FROM match\n" +
-            "ORDER BY match_date";
+    private static final String SQL_FIND_ALL_MATCHES = "SELECT match_id,tournament,home_team,away_team, home_team_goals,away_team_goals,match_date,active FROM bets.match";
 
     /** The Constant SQL_FIND_ALL_ACTIVE_MATCHES. */
-    private static final String SQL_FIND_ALL_ACTIVE_MATCHES = "SELECT match_id,tournament,home_team,\n" +
-            "away_team, home_team_goals,away_team_goals,match_date,active FROM match\n" +
-            "WHERE active = true ORDER BY match_date";
+    private static final String SQL_FIND_ALL_ACTIVE_MATCHES = "SELECT match_id,tournament,home_team,away_team, home_team_goals,away_team_goals,match_date,active FROM bets.match WHERE active = true ORDER BY match_date";
 
     /**
      * Instantiates a new match DAO.
@@ -391,13 +386,14 @@ public class MatchDAO extends AbstractDAO {
         List<Match> matchList = new ArrayList<>();
         try {
             while (set.next()) {
-                int matchId = set.getInt("matchId");
+                int matchId = set.getInt("match_id");
                 String tournament = set.getString("tournament");
-                String homeTeam = set.getString("homeTeam");
-                String awayTeam = set.getString("awayTeam");
-                int homeTeamGoals = set.getInt("homeTeamGoals");
-                int awayTeamGoals = set.getInt("awayTeamGoals");
-                Date matchDate = set.getDate("matchDate");
+                String homeTeam = set.getString("home_team");
+                String awayTeam = set.getString("away_team");
+                int homeTeamGoals = set.getInt("home_team_goals");
+                int awayTeamGoals = set.getInt("away_team_goals");
+
+                Date matchDate = set.getTimestamp("match_date");
                 boolean active = set.getBoolean("active");
                 matchList.add(new Match(matchId, tournament,homeTeam,awayTeam,homeTeamGoals,awayTeamGoals,matchDate,active));
             }

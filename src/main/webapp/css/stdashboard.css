@@ -22,6 +22,7 @@ body {
  * Hide default border to remove 1px line.
  */
 .navbar-fixed-top {
+    font-family: 'Ravi Prakash', cursive;
     border: 0;
 }
 

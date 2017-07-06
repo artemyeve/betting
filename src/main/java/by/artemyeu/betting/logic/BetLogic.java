@@ -22,14 +22,11 @@ public class BetLogic {
 
     /**
      * Adds the bet.
-     *
+     * @param user the user
      * @param betAmount the bet amount
-     * @param betDate the bet date
-     * @param user the bet date
-     * @param account the account
      * @throws LogicException the logic exception
      */
-    public void addBet(BigDecimal betAmount, Date betDate, User user, Account account) throws LogicException {
+    public void addBet( User user, String betAmount) throws LogicException {
 
         ProxyConnection connection = ConnectionPool.getInstance().getConnection();
         BetDAO betDAO = new BetDAO(connection);
@@ -37,9 +34,10 @@ public class BetLogic {
         try {
             try {
                 connection.setAutoCommit(false);
-                BigDecimal money = account.getBalance();
-                userDAO.changeCash(money.subtract(betAmount),account.getId());
-                betDAO.addBet(betAmount, betDate,user.getId());
+                BigDecimal amount = new BigDecimal(betAmount);
+                BigDecimal balance = user.getBalance();
+                userDAO.changeCash(balance.subtract(amount),user.getId());
+                betDAO.addBet(amount, user.getId());
                 connection.commit();
             } catch (SQLException e) {
                 throw new LogicException("Exception during bet addition", e);

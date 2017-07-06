@@ -19,16 +19,14 @@
       <label for="cash" class="col-sm-3 control-label"><fmt:message key="profile.money"/> *</label>
       <div class="col-sm-6">
         <input type="number" class="form-control" name="cash" id="cash" data-parsley-required data-parsley-type="number"
-               step="0.01" data-parsley-min="0.10" data-parsley-max="99.99"/>
+               step="1.00" data-parsley-min="1.00" data-parsley-max="1000.00"/>
       </div>
     </div>
     <div class="form-group">
       <div class="col-sm-offset-3 col-sm-9 m-t-15">
-        <button type="submit" name="command" value="add_funds" class="btn btn-primary">
-          <fmt:message key="profile.title.balance"/>
+        <button type="submit" name="command" value="add_funds" class="btn btn-primary"><fmt:message key="profile.title.balance"/>
         </button>
-        <button type="button" class="btn btn-primary " onClick='location.href="profile.jsp"'>
-          <fmt:message key="form.back"/>
+        <button type="button" class="btn btn-primary " onClick='location.href="profile.jsp"'><fmt:message key="form.back"/>
         </button>
       </div>
     </div>
